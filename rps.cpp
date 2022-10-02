@@ -5,7 +5,6 @@ using namespace std;
 
 int ChooseRPS();
 int computerRPS();
-void biggerInput(int &rps);
 void game(int rps, int &pscore, int &cscore);
 void thanksForGames(int a, int b);
 int evaluation(int a, int b);
@@ -19,50 +18,39 @@ int main(int argc, char *argv[])
     Clear();
     int rps = ChooseRPS();
     int pscore = 0, cscore = 0;
-    (rps == 0? play = false : play = true);
-    biggerInput(rps);
+    (rps == '0'? play = false : play = true);
     while(play){
         game(rps, pscore, cscore);
         rps = ChooseRPS();
-        (rps == 0? play = false : play = true);
-        biggerInput(rps);
+        (rps == '0'? play = false : play = true);
     }
-    if (play == false){
-        thanksForGames(pscore, cscore);
-    }
+    thanksForGames(pscore, cscore);
     return 1;
 }
 
 int ChooseRPS()
 {
-    int ret = {0};
-    cout << "Please choose rock, paper, scissors" << endl;
+    char ret = '0';
+    cout << "Please choose rock, paper, scissors!" << endl;
     cout << "Type 1 for rock, 2 for paper, 3 for scissors, 0 to end the game: ";
     cin >> ret;
-    if (!cin){
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Ouch that is incorrect input! Please try again!" << endl;
+    cout << ret << endl;
+    if (ret == '0'){
+        cout << "You have choosen to end the game!" << endl;
+    }else if (ret == '1'){
+        cout << "You have choosen rock!" << endl;
+    }else if (ret == '2'){
+        cout << "You have choosen paper!" << endl;
+    }else if (ret == '3'){
+        cout << "You have choosen scissors!" << endl;
+    }else{
+        Clear();
+        cout << ret << " is an incorrect input! Please try again!" << endl;
         ret = ChooseRPS();
     }
     return ret;
 }
 
-void biggerInput(int &rps)
-{
-    if (rps < 0){
-        rps = -rps;
-    }
-    rps = rps % 3;
-
-    if (rps == 0){
-        cout << "You've choosen scissors!" << endl;
-    }else if (rps == 1){
-        cout << "You've choosen rock!" << endl;
-    }else{
-        cout << "You've choosen paper!" << endl;
-    }
-}
 
 void game(int rps, int &pscore, int &csore)
 {
@@ -82,14 +70,22 @@ void game(int rps, int &pscore, int &csore)
 
 int computerRPS()
 {
-    return rand() % 3;
+    int ret = (rand() % 3) + 1;
+    if (ret == 1){
+        cout << "Computer choose rock!" << endl;
+    }else if (ret == 2){
+        cout << "Computer choose paper!" << endl;
+    }else{
+        cout << "Computer choose scissors!" << endl;
+    }
+    return ret;
 }
 
 int evaluation(int rps, int crps)
 {
-    if ((rps + 1) % 3 == crps){
+    if ((rps + 2) % 3 == crps % 3){
         return 1;
-    }else if ((crps + 1) % 3 == rps){
+    }else if ((crps + 2) % 3 == rps % 3){
         return -1;
     }else{
         return 0;
@@ -99,9 +95,9 @@ int evaluation(int rps, int crps)
 void thanksForGames(int pscore, int cscore)
 {
     Clear();
-    cout << "Sadge that you go! :(" << endl;
     cout << "The final score was " << pscore << " points for player and " << cscore << " points for computer" << endl;
 }
+
 
 void Clear()
 {
