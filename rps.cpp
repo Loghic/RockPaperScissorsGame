@@ -34,7 +34,6 @@ int ChooseRPS()
     cout << "Please choose rock, paper, scissors!" << endl;
     cout << "Type 1 for rock, 2 for paper, 3 for scissors, 0 to end the game: ";
     cin >> ret;
-    cout << ret << endl;
     if (ret == '0'){
         cout << "You have choosen to end the game!" << endl;
     }else if (ret == '1'){
